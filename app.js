@@ -78,7 +78,6 @@
 
   function setNowPlaying(title) {
     tickerEl.textContent = "now sumping: " + title;
-    document.title = "\u{1F534} " + title + " — sump.stream";
     // restart the crawl so long titles start from the edge
     tickerEl.style.animation = "none";
     void tickerEl.offsetWidth;
