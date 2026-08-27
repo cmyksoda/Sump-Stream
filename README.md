@@ -1,5 +1,7 @@
 # sump.stream 💧
 
+**https://sump.stream**
+
 A 24/7 broadcast of every sump on YouTube. Why? Sump.
 
 - Everything is UTC, so the daily reshuffle happens at the same instant for everyone.
