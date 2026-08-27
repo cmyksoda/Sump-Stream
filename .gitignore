@@ -1,1 +1,3 @@
 project-notes/
+.sumpcache/
+__pycache__/
