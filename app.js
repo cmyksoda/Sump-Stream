@@ -23,7 +23,7 @@
   }
 
   const videos = window.SUMP.videos;
-  document.getElementById("count").textContent = videos.length;
+  document.getElementById("count").textContent = videos.length.toLocaleString("en-US");
   document.getElementById("refreshed").textContent = window.SUMP.generated;
 
   /* ---- deterministic daily schedule ---- */
