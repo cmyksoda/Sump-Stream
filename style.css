@@ -1,0 +1,190 @@
+/* sump.stream — basement at 3am, but make it cozy */
+
+:root {
+  --murk: #0b1517;
+  --murk-2: #0f2023;
+  --chalk: #cfe8dd;
+  --chalk-dim: #7fa89a;
+  --foam: #57e0b8;
+  --live: #ff5252;
+  --frame: #1c3a38;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1rem 2.5rem;
+  background: var(--murk);
+  color: var(--chalk);
+  font-family: "DynaPuff", "Comic Sans MS", cursive;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* ---- masthead ---- */
+
+.masthead { text-align: center; }
+
+.title {
+  font-size: clamp(2.4rem, 9vw, 5.5rem);
+  font-weight: 600;
+  /* dynapuff runs wide; tighter tracking keeps the title on one line */
+  letter-spacing: 0.03em;
+  color: var(--foam);
+  transform: rotate(-1.5deg);
+}
+
+.underline {
+  width: min(320px, 70vw);
+  color: var(--foam);
+  margin-top: -0.4rem;
+  opacity: 0.9;
+}
+
+.tagline {
+  margin-top: 0.35rem;
+  font-size: 1.25rem;
+  color: var(--chalk-dim);
+  transform: rotate(0.6deg);
+}
+
+/* ---- the tv ---- */
+
+.stage { position: relative; width: min(94vw, 980px); }
+
+.tv {
+  position: relative;
+  background: var(--murk-2);
+  border: 5px solid var(--frame);
+  /* classic hand-drawn wobble */
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  padding: 26px;
+  /* no rotate here: a tilted iframe renders video edges soft/jaggy */
+  /* box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55); */
+}
+
+.screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  /* square on purpose: browsers don't reliably clip video layers to a radius */
+  overflow: hidden;
+  border: 5px solid var(--murk);
+  /* keep the 16:9 ratio on the inside of the border, or youtube pillarboxes
+     the ~4px difference with its white page background */
+  box-sizing: content-box;
+}
+
+.screen iframe,
+#player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+#shield { position: absolute; inset: 0; cursor: pointer; }
+
+/* one-time entrance curtain: fully opaque so youtube's loading chrome
+   can't flash through; fades out on tune-in */
+#static {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  background-color: #060c0d;
+  background-image:
+    linear-gradient(rgba(6, 12, 13, 0.92), rgba(6, 12, 13, 0.92)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#static.gone { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  #static { background-image: linear-gradient(#060c0d, #060c0d); }
+}
+
+#tunein {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(7, 14, 15, 0.82);
+  backdrop-filter: blur(4px);
+  border: 0;
+  color: var(--foam);
+  font-family: inherit;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+#tunein small { font-size: 1.1rem; color: var(--chalk-dim); }
+#tunein:hover { color: #8df0d2; }
+#tunein.hidden { display: none; }
+
+/* ---- status bar ---- */
+
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+
+.statusbar button {
+  font-family: inherit;
+  font-size: 1.15rem;
+  color: var(--chalk);
+  background: none;
+  border: 2.5px solid var(--frame);
+  border-radius: 60px 20px 55px 18px / 20px 50px 18px 55px;
+  padding: 0.15rem 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.statusbar button:hover { border-color: var(--foam); }
+
+#live { color: var(--live); letter-spacing: 0.1em; }
+
+#cc { opacity: 0.45; }
+#cc.on { opacity: 1; color: var(--foam); border-color: var(--foam); }
+
+.dot {
+  display: inline-block;
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  background: var(--live);
+  animation: blink 1.6s steps(2, start) infinite;
+}
+
+.ticker {
+  flex: 1;
+  overflow: hidden;
+  font-size: 1.2rem;
+  color: var(--chalk-dim);
+}
+.ticker span {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: crawl 22s linear infinite;
+}
+
+@keyframes crawl { to { transform: translateX(-100%); } }
+@keyframes blink { 50% { opacity: 0.25; } }
+
+/* ---- footer ---- */
+
+.basement { text-align: center; font-size: 1.05rem; color: var(--chalk-dim); }
+.basement .fine { font-size: 0.85rem; opacity: 0.7; margin-top: 0.4rem; }

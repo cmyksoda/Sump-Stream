@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sump.stream — 24/7 sump</title>
+  <meta name="description" content="A 24/7 broadcast of every sump on YouTube. Why? Sump.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <h1 class="title">SUMP&nbsp;STREAM</h1>
+    <svg class="underline" viewBox="0 0 300 20" aria-hidden="true">
+      <path d="M4 12 C 40 4, 70 18, 110 10 S 190 4, 230 12 S 280 16, 296 8"
+            fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <p class="tagline">24/7 &bull; all sump &bull; no mercy</p>
+  </header>
+
+  <main class="stage">
+    <div class="tv">
+      <div class="screen">
+        <div id="player"></div>
+        <!-- blocks seeking/pausing: it's LIVE, you get what the schedule gives you -->
+        <div id="shield" title="click to mute/unmute"></div>
+        <div id="static" aria-hidden="true"></div>
+        <button id="tunein" type="button">
+          <span class="dot" aria-hidden="true"></span> TUNE&nbsp;IN
+          <small>(with sound)</small>
+        </button>
+      </div>
+
+      <div class="statusbar">
+        <button id="live" type="button" title="resync to the live schedule">
+          <span class="dot" aria-hidden="true"></span> LIVE
+        </button>
+        <div class="ticker"><span id="nowplaying">tuning the sump antenna&hellip;</span></div>
+        <button id="cc" type="button" title="captions on/off" aria-pressed="false">CC</button>
+        <button id="mute" type="button" title="mute / unmute" aria-label="mute or unmute">🔊</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="basement">
+    <p><span id="count">?</span> sumps in rotation</p>
+    <p class="fine">not affiliated with any sump &bull; videos belong to their creators &bull; refreshed <span id="refreshed">?</span></p>
+  </footer>
+
+  <script src="videos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
